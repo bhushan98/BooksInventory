@@ -9,7 +9,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Service
-class BookService (private val bookRepository: BookRepository) {
+class BookService(private val bookRepository: BookRepository) {
 
     fun addBook(request: BookRequest): Mono<Book> =
         bookRepository.save(
@@ -53,4 +53,9 @@ class BookService (private val bookRepository: BookRepository) {
         findById(id)
             .flatMap(bookRepository::delete)
 
+    fun findByTitle(title: String): Flux<Book> =
+        bookRepository.findBookByTitle(title)
+
+    fun findByAuthor(author: String): Flux<Book> =
+        bookRepository.findBookByAuthors(author)
 }
