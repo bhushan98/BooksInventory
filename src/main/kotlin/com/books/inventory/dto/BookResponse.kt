@@ -22,5 +22,6 @@ class BookResponse(
                 price = book.price,
                 quantity = book.quantity
             )
+
     }
 }

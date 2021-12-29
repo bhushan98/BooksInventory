@@ -117,7 +117,6 @@ class BookIntegrationTest {
             quantity = 1
         )
         bookRepository.save(toBeModified).block()
-
         var modifiedRequest = BookRequest(
             title = "New Added Book Title",
             authors = Arrays.asList("author1"),

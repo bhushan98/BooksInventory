@@ -1,15 +1,15 @@
 package com.books.inventory.controller
 
-import com.books.inventory.dto.BookRequest
-import com.books.inventory.dto.BookResponse
+import com.books.inventory.dto.*
 import com.books.inventory.service.BookService
+import com.books.inventory.service.GoogleBooksService
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @RestController()
 @RequestMapping("/api/book")
-class BookController(private val bookService: BookService) {
+class BookController(private val bookService: BookService, private val googleBooksService: GoogleBooksService) {
 
     @PostMapping
     fun createBook(@RequestBody request: BookRequest): Mono<BookResponse> {
@@ -50,5 +50,10 @@ class BookController(private val bookService: BookService) {
     @DeleteMapping("{id}")
     fun deleteBook(@PathVariable id: String): Mono<Void> {
         return bookService.deleteById(id)
+    }
+
+    @GetMapping("googlebooks/{authorOrTitle}")
+    fun getBooksFromGoogleBooksByAuthorOrTitle(@PathVariable authorOrTitle: String): Flux<GoogleBookList> {
+        return googleBooksService.getBooksByTitleAndAuthor(authorOrTitle)
     }
 }
