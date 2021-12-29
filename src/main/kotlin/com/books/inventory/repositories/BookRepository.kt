@@ -5,7 +5,8 @@ import org.springframework.data.mongodb.repository.ReactiveMongoRepository
 import reactor.core.publisher.Flux
 
 interface BookRepository : ReactiveMongoRepository<Book, String> {
-    fun findBookByTitle(title: String): Flux<Book>;
+    fun findBookByTitle(title: String): Flux<Book>
 
-    fun findBookByAuthors(author: String): Flux<Book>;
+    fun findBookByAuthors(author: String): Flux<Book>
+
 }
