@@ -53,7 +53,7 @@ class BookController(private val bookService: BookService, private val googleBoo
     }
 
     @GetMapping("googlebooks/{authorOrTitle}")
-    fun getBooksFromGoogleBooksByAuthorOrTitle(@PathVariable authorOrTitle: String): Flux<GoogleBookList> {
+    fun getBooksFromGoogleBooksByAuthorOrTitle(@PathVariable authorOrTitle: String): Mono<List<GoogleBookItem>> {
         return googleBooksService.getBooksByTitleAndAuthor(authorOrTitle)
     }
 }

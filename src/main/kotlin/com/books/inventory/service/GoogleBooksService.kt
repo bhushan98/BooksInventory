@@ -17,7 +17,7 @@ import reactor.kotlin.core.publisher.toMono
 @Component
 class GoogleBooksService(private val client: WebClient, private val config: GoogleBooksConfig){
 
-    fun getBooksByTitleAndAuthor(request: String): Flux<GoogleBookList> {
+    fun getBooksByTitleAndAuthor(request: String): Mono<List<GoogleBookItem>> {
         val response = client.get()
             .uri{
                 builder: UriBuilder ->
@@ -27,11 +27,11 @@ class GoogleBooksService(private val client: WebClient, private val config: Goog
                     .build()
             }
             .retrieve()
-            .bodyToFlux(GoogleBookList::class.java)
+            .bodyToMono(GoogleBookList::class.java)
 
 
 
-        return response
+        return response.map { it.items }
     }
 
 
